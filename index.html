@@ -1,0 +1,651 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>CloudVPS — Free VPS 6H</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- Optional: Inter font (safe fallback to system if blocked) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Top header -->
+    <header class="site-header" role="banner">
+      <div class="container header-inner">
+        <a class="brand" href="#home" aria-label="CloudVPS Home">
+          <span class="brand-mark" aria-hidden="true">
+            <!-- cloud icon -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M7.6 19.5h9.9a4.1 4.1 0 0 0 .7-8.2A5.7 5.7 0 0 0 7.2 8.9a3.9 3.9 0 0 0 .4 10.6Z"
+                fill="url(#g1)"
+              />
+              <defs>
+                <linearGradient id="g1" x1="4" y1="7" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#3B82F6" />
+                  <stop offset="0.55" stop-color="#8B5CF6" />
+                  <stop offset="1" stop-color="#22D3EE" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </span>
+          <span class="brand-text">CloudVPS</span>
+        </a>
+
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link" href="#features">Features</a>
+          <a class="nav-link" href="#how">How it works</a>
+          <a class="nav-link" href="#tasks">Tasks</a>
+          <a class="nav-link" href="#faq">FAQ</a>
+          <a class="nav-link" href="#dashboard">Settings</a>
+        </nav>
+
+        <div class="header-actions">
+          <a class="btn btn-ghost" href="#auth">Login</a>
+          <a class="btn btn-primary" href="#dashboard">Get Free VPS</a>
+        </div>
+      </div>
+      <div class="header-glow" aria-hidden="true"></div>
+    </header>
+
+    <main id="main">
+      <!-- Landing / Hero -->
+      <section id="home" class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Futuristic cloud hosting platform</p>
+            <h1 class="hero-title">
+              Free VPS 6H –
+              <span class="hero-title-accent">Earn Points</span> by Watching Ads
+            </h1>
+            <p class="hero-subtitle">
+              Watch short video ads & complete missions to unlock compute time. Clean, fast, and premium like big
+              providers.
+            </p>
+
+            <div class="hero-cta" role="group" aria-label="Primary actions">
+              <a class="btn btn-primary btn-lg" href="#tasks">
+                <span class="btn-ico" aria-hidden="true">
+                  <!-- play icon -->
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" />
+                    <path
+                      d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      opacity="0.9"
+                    />
+                  </svg>
+                </span>
+                Watch Ads to Earn Points
+              </a>
+              <a class="btn btn-secondary btn-lg" href="#dashboard">Get Free VPS</a>
+            </div>
+
+            <div class="glass progress-card" role="region" aria-label="Points progress">
+              <div class="progress-row">
+                <span class="progress-label">
+                  <span class="muted">Points earned this session:</span>
+                  <strong>120</strong>
+                  <span class="muted">/ 300 points to get</span>
+                  <strong>6H VPS</strong>
+                </span>
+                <span class="pill pill-soft" aria-label="Daily refresh time">Daily refresh 00:00 UTC</span>
+              </div>
+
+              <div class="progress-track" aria-hidden="true">
+                <div class="progress-fill" style="width: 40%"></div>
+                <div class="progress-sheen"></div>
+              </div>
+
+              <p class="progress-hint">New missions refresh daily at 00:00 UTC. Earn more to redeem and extend.</p>
+            </div>
+          </div>
+
+          <!-- Right hero preview (fake 3D panel like the mock) -->
+          <div class="hero-visual" aria-hidden="true">
+            <div class="preview-frame glass">
+              <div class="preview-top">
+                <span class="mini-brand">
+                  <span class="mini-dot"></span>
+                  CloudVPS
+                </span>
+                <span class="mini-badge">Compute</span>
+              </div>
+
+              <div class="preview-screen">
+                <div class="screen-grid">
+                  <div class="chart-block">
+                    <div class="chart-title">Usage</div>
+                    <svg class="bars" viewBox="0 0 120 48">
+                      <rect x="6" y="22" width="8" height="20" rx="3" />
+                      <rect x="20" y="12" width="8" height="30" rx="3" />
+                      <rect x="34" y="18" width="8" height="24" rx="3" />
+                      <rect x="48" y="8" width="8" height="34" rx="3" />
+                      <rect x="62" y="16" width="8" height="26" rx="3" />
+                      <rect x="76" y="4" width="8" height="38" rx="3" />
+                      <rect x="90" y="14" width="8" height="28" rx="3" />
+                      <rect x="104" y="10" width="8" height="32" rx="3" />
+                    </svg>
+                  </div>
+
+                  <div class="gauge-block">
+                    <div class="chart-title">Performance</div>
+                    <div class="gauge">
+                      <div class="gauge-arc"></div>
+                      <div class="gauge-needle"></div>
+                      <div class="gauge-center"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="preview-shadow"></div>
+            </div>
+
+            <div class="cloud-puffs">
+              <span class="puff puff-a"></span>
+              <span class="puff puff-b"></span>
+              <span class="puff puff-c"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-sparkles" aria-hidden="true"></div>
+        <div class="hero-wave" aria-hidden="true"></div>
+      </section>
+
+      <!-- Tasks -->
+      <section id="tasks" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">Complete tasks to earn points</h2>
+            <p class="section-subtitle">Fast missions. Instant rewards. Premium dashboard experience.</p>
+          </div>
+
+          <div class="task-grid">
+            <article class="glass task-card">
+              <div class="task-head">
+                <div class="task-ico">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" />
+                    <path
+                      d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      opacity="0.8"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="task-title">Watch Video Ads</h3>
+                  <p class="task-meta">+5 points per ad</p>
+                </div>
+              </div>
+
+              <div class="task-media">
+                <div class="media-chip">
+                  <span class="chip-dot"></span>
+                  HD
+                </div>
+                <div class="media-stack">
+                  <div class="media-card"></div>
+                  <div class="media-card media-card-2"></div>
+                </div>
+              </div>
+
+              <div class="task-actions">
+                <a class="btn btn-primary" href="#dashboard">Watch Now</a>
+                <span class="pill pill-soft">Available</span>
+              </div>
+            </article>
+
+            <article class="glass task-card">
+              <div class="task-head">
+                <div class="task-ico">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M10.6 13.4a4 4 0 0 1 0-5.7l1.1-1.1a4 4 0 0 1 5.7 0"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M13.4 10.6a4 4 0 0 1 0 5.7l-1.1 1.1a4 4 0 0 1-5.7 0"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      opacity="0.9"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="task-title">Complete Short Links</h3>
+                  <p class="task-meta">+2 points per link</p>
+                </div>
+              </div>
+
+              <div class="task-media">
+                <div class="link-card">
+                  <div class="link-row">
+                    <span class="link-dot"></span>
+                    <span class="link-line"></span>
+                  </div>
+                  <div class="link-row">
+                    <span class="link-dot"></span>
+                    <span class="link-line"></span>
+                  </div>
+                  <div class="link-row">
+                    <span class="link-dot"></span>
+                    <span class="link-line"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="task-actions">
+                <a class="btn btn-secondary" href="#dashboard">Open Links</a>
+                <span class="pill pill-soft">Available</span>
+              </div>
+            </article>
+
+            <article class="glass task-card">
+              <div class="task-head">
+                <div class="task-ico">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M20 7L10.5 16.5 4 10"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="task-title">Daily Missions</h3>
+                  <p class="task-meta">Streak Bonus Active!</p>
+                </div>
+              </div>
+
+              <div class="task-media">
+                <div class="mission-card">
+                  <div class="mission-pill"></div>
+                  <div class="mission-pill short"></div>
+                  <div class="mission-pill"></div>
+                  <div class="mission-badge"></div>
+                </div>
+              </div>
+
+              <div class="task-actions">
+                <a class="btn btn-primary" href="#dashboard">View Tasks</a>
+                <span class="pill pill-good">Active</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section id="how" class="section how">
+        <div class="container">
+          <h2 class="how-title">How It Works</h2>
+          <div class="glass how-strip" role="region" aria-label="How it works steps">
+            <ol class="how-steps">
+              <li class="how-step">
+                <span class="step-badge step-1">1</span>
+                <div class="step-copy">
+                  <strong>Earn Points</strong>
+                  <span class="muted">Watch ads & complete missions</span>
+                </div>
+              </li>
+              <li class="how-step">
+                <span class="step-badge step-2">2</span>
+                <div class="step-copy">
+                  <strong>Redeem VPS</strong>
+                  <span class="muted">Unlock free 6H compute time</span>
+                </div>
+              </li>
+              <li class="how-step">
+                <span class="step-badge step-3">3</span>
+                <div class="step-copy">
+                  <strong>Manage & Extend</strong>
+                  <span class="muted">Monitor resources & extend with points</span>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dashboard (static mock) -->
+      <section id="dashboard" class="dashboard">
+        <div class="dashboard-wave" aria-hidden="true"></div>
+        <div class="container app-shell">
+          <aside class="glass sidebar" aria-label="Sidebar navigation">
+            <div class="sidebar-brand">
+              <span class="brand-mark" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M7.6 19.5h9.9a4.1 4.1 0 0 0 .7-8.2A5.7 5.7 0 0 0 7.2 8.9a3.9 3.9 0 0 0 .4 10.6Z"
+                    fill="url(#g2)"
+                  />
+                  <defs>
+                    <linearGradient id="g2" x1="4" y1="7" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#3B82F6" />
+                      <stop offset="0.55" stop-color="#8B5CF6" />
+                      <stop offset="1" stop-color="#22D3EE" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </span>
+              <span class="brand-text">CloudVPS</span>
+            </div>
+
+            <nav class="side-nav" aria-label="Dashboard">
+              <a class="side-link active" href="#dashboard">
+                <span class="side-ico" aria-hidden="true">🏠</span>
+                Dashboard
+              </a>
+              <a class="side-link" href="#tasks">
+                <span class="side-ico" aria-hidden="true">🧩</span>
+                Tasks
+              </a>
+              <a class="side-link" href="#dashboard">
+                <span class="side-ico" aria-hidden="true">🖥️</span>
+                VPS
+              </a>
+              <a class="side-link" href="#dashboard">
+                <span class="side-ico" aria-hidden="true">⚙️</span>
+                Settings
+              </a>
+            </nav>
+          </aside>
+
+          <div class="app-main">
+            <div class="app-topbar">
+              <div class="topbar-spacer"></div>
+              <button class="icon-btn" type="button" aria-label="Notifications">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 22a2.5 2.5 0 0 0 2.4-2H9.6A2.5 2.5 0 0 0 12 22Z"
+                    fill="currentColor"
+                    opacity="0.9"
+                  />
+                  <path
+                    d="M18 16v-5a6 6 0 0 0-12 0v5l-2 2h16l-2-2Z"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linejoin="round"
+                    opacity="0.9"
+                  />
+                </svg>
+              </button>
+
+              <div class="user-chip glass" role="button" tabindex="0" aria-label="User menu">
+                <span class="avatar" aria-hidden="true">JT</span>
+                <span class="user-name">Jsoun Torraan</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+            </div>
+
+            <h2 class="page-title">Welcome Back!</h2>
+
+            <div class="summary-row">
+              <section class="glass summary-card" aria-label="Points balance">
+                <div class="summary-label">Points Balance:</div>
+                <div class="summary-value">1,250<span class="spark" aria-hidden="true">•</span></div>
+                <a class="btn btn-secondary btn-sm summary-action" href="#tasks">Earn More</a>
+              </section>
+
+              <section class="glass summary-card wide" aria-label="Free time remaining">
+                <div class="summary-label">Free Time Remaining:</div>
+                <div class="summary-value">05:28:45</div>
+                <a class="btn btn-primary btn-sm summary-action" href="#tasks">Extend</a>
+
+                <div class="mini-rack" aria-hidden="true">
+                  <div class="rack"></div>
+                  <div class="rack rack-2"></div>
+                </div>
+              </section>
+            </div>
+
+            <div class="metrics-row">
+              <!-- CPU -->
+              <section class="glass metric-card" aria-label="CPU usage">
+                <div class="metric-head">
+                  <span class="metric-title">CPU Usage</span>
+                  <span class="metric-ico" aria-hidden="true">⚡</span>
+                </div>
+                <div class="metric-body">
+                  <div class="donut" style="--p: 25">
+                    <div class="donut-inner">
+                      <div class="donut-val">25%</div>
+                    </div>
+                  </div>
+                  <svg class="sparkline" viewBox="0 0 120 40" aria-hidden="true">
+                    <path
+                      d="M2 26 C 10 18, 18 28, 28 20 C 38 12, 46 22, 56 16 C 66 10, 76 26, 86 18 C 96 10, 106 22, 118 12"
+                      fill="none"
+                      stroke="url(#sl)"
+                      stroke-width="2.6"
+                      stroke-linecap="round"
+                    />
+                    <defs>
+                      <linearGradient id="sl" x1="0" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#3B82F6" />
+                        <stop offset="0.55" stop-color="#8B5CF6" />
+                        <stop offset="1" stop-color="#22D3EE" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </section>
+
+              <!-- RAM -->
+              <section class="glass metric-card" aria-label="RAM usage">
+                <div class="metric-head">
+                  <span class="metric-title">RAM Usage</span>
+                  <span class="metric-ico" aria-hidden="true">🧠</span>
+                </div>
+                <div class="metric-body stacked">
+                  <div class="metric-big">
+                    <span class="metric-num">2.5</span><span class="metric-unit">GB</span>
+                    <span class="muted">/ 8 GB</span>
+                  </div>
+                  <div class="bar">
+                    <div class="bar-fill" style="width: 31%"></div>
+                    <div class="bar-sheen"></div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Storage -->
+              <section class="glass metric-card" aria-label="Storage">
+                <div class="metric-head">
+                  <span class="metric-title">Storage</span>
+                  <span class="metric-ico" aria-hidden="true">💾</span>
+                </div>
+                <div class="metric-body stacked">
+                  <div class="metric-big">
+                    <span class="metric-num">30</span><span class="metric-unit">GB</span>
+                    <span class="muted">/ 50 GB</span>
+                  </div>
+                  <div class="bar">
+                    <div class="bar-fill" style="width: 60%"></div>
+                    <div class="bar-sheen"></div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Time left + earnings -->
+              <section class="glass metric-card tall" aria-label="Time left and recent earning">
+                <div class="metric-head">
+                  <span class="metric-title">Time Left</span>
+                  <span class="metric-ico" aria-hidden="true">⏱️</span>
+                </div>
+                <div class="time-card">
+                  <div class="time-points">
+                    <strong>55 pts</strong>
+                    <span class="muted">earned today</span>
+                  </div>
+
+                  <ul class="mini-list" aria-label="Recent tasks">
+                    <li class="mini-item">
+                      <span class="mini-dot good"></span>
+                      Watched Ad
+                      <span class="mini-right">+5</span>
+                    </li>
+                    <li class="mini-item">
+                      <span class="mini-dot info"></span>
+                      Short Link Completed
+                      <span class="mini-right">+2</span>
+                    </li>
+                    <li class="mini-item">
+                      <span class="mini-dot good"></span>
+                      Daily Bonus Achieved
+                      <span class="mini-right">+10</span>
+                    </li>
+                  </ul>
+                </div>
+              </section>
+            </div>
+
+            <div class="actions-row" role="group" aria-label="VPS actions">
+              <button class="btn btn-primary btn-wide" type="button">
+                <span class="btn-ico" aria-hidden="true">☁️</span>
+                Create VPS
+              </button>
+              <button class="btn btn-secondary btn-wide" type="button">
+                <span class="btn-ico" aria-hidden="true">⛔</span>
+                Stop VPS
+              </button>
+              <button class="btn btn-secondary btn-wide" type="button">
+                <span class="btn-ico" aria-hidden="true">🕒</span>
+                Extend Time
+              </button>
+            </div>
+
+            <div class="logos" aria-label="Provider style reference">
+              <span class="logo-pill">aws</span>
+              <span class="logo-pill">Google Cloud</span>
+              <span class="logo-pill">DigitalOcean</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Auth (simple static section to match “JS later”) -->
+      <section id="auth" class="section auth">
+        <div class="container auth-wrap">
+          <div class="glass auth-card" role="region" aria-label="Login / Register">
+            <div class="auth-head">
+              <h2 class="auth-title">Welcome back</h2>
+              <p class="auth-sub">Sign in to earn points and manage your VPS.</p>
+            </div>
+
+            <form class="auth-form" action="#" method="post">
+              <label class="field">
+                <span class="label">Email</span>
+                <input class="input" type="email" name="email" placeholder="you@domain.com" autocomplete="email" required />
+              </label>
+
+              <label class="field">
+                <span class="label">Password</span>
+                <input
+                  class="input"
+                  type="password"
+                  name="password"
+                  placeholder="••••••••"
+                  autocomplete="current-password"
+                  required
+                />
+              </label>
+
+              <div class="auth-row">
+                <label class="check">
+                  <input type="checkbox" />
+                  <span>Remember me</span>
+                </label>
+                <a class="link" href="#auth">Forgot password?</a>
+              </div>
+
+              <button class="btn btn-primary btn-lg btn-full" type="submit">Sign in</button>
+
+              <div class="divider" aria-hidden="true">
+                <span>or continue with</span>
+              </div>
+
+              <div class="oauth-row">
+                <button class="btn btn-secondary btn-full" type="button">
+                  <span class="btn-ico" aria-hidden="true">G</span>
+                  Continue with Google
+                </button>
+                <button class="btn btn-secondary btn-full" type="button">
+                  <span class="btn-ico" aria-hidden="true">GH</span>
+                  Continue with GitHub
+                </button>
+              </div>
+
+              <p class="auth-foot">
+                Don’t have an account? <a class="link" href="#auth">Create one</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ (light) -->
+      <section id="faq" class="section">
+        <div class="container">
+          <div class="section-head">
+            <h2 class="section-title">FAQ</h2>
+            <p class="section-subtitle">Short answers for common questions.</p>
+          </div>
+
+          <div class="faq-grid">
+            <details class="glass faq-item">
+              <summary>Is it really free?</summary>
+              <p>Yes — you earn points from ads/missions to redeem compute time. VPS stops when time ends.</p>
+            </details>
+
+            <details class="glass faq-item">
+              <summary>Can I extend beyond 6 hours?</summary>
+              <p>Yes — use points to extend time. Limits and cooldown rules are handled server-side (JS later).</p>
+            </details>
+
+            <details class="glass faq-item">
+              <summary>What are the VPS specs?</summary>
+              <p>Shown in the dashboard cards. Specs can be fixed or selectable later (depends on backend).</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div class="container footer-inner">
+          <div class="footer-left">
+            <span class="brand-text">CloudVPS</span>
+            <span class="muted">© 2026</span>
+          </div>
+          <div class="footer-right">
+            <a class="link muted" href="#home">Home</a>
+            <a class="link muted" href="#tasks">Tasks</a>
+            <a class="link muted" href="#dashboard">Dashboard</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
