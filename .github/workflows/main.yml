@@ -242,6 +242,16 @@ jobs:
           
           echo "RDP_PUBLIC_IP=$RDP_PUBLIC_IP" >> $GITHUB_ENV
           echo "WEB_PUBLIC_IP=$WEB_PUBLIC_IP" >> $GITHUB_ENV
+          # Send connection info to Cloudflare Worker webhook (so FE can fetch it securely)
+          # Required secrets in repo: WEBHOOK_URL, WEBHOOK_SECRET
+          if [ -n "${{ secrets.WEBHOOK_URL }}" ] && [ -n "${{ secrets.WEBHOOK_SECRET }}" ]; then
+            JSON_PAYLOAD=$(cat <<JSON
+{"run_id":"${{ github.run_id }}","os_name":"$OS_NAME","rdp":"$RDP_PUBLIC_IP","web":"http://$WEB_PUBLIC_IP","username":"Admin","password":"Window@123456"}
+JSON
+            )
+            curl -sS -X POST "${{ secrets.WEBHOOK_URL }}/api/webhook/connection"               -H "Authorization: Bearer ${{ secrets.WEBHOOK_SECRET }}"               -H "Content-Type: application/json"               --data "$JSON_PAYLOAD" >/dev/null || true
+          fi
+
 
       - name: ⏰ Session Keepalive / Duy trì phiên
         run: |
