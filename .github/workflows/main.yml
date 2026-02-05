@@ -1,0 +1,264 @@
+name: 🖥️ Windows RDP 
+
+on: 
+  workflow_dispatch:
+    inputs:
+      os_version:
+        description: '📀 Select Operating System / Chọn Hệ Điều Hành'
+        required: true
+        default: 'Windows Server 2025 (Docker - 4vCPU | 8GB RAM)'
+        type: choice
+        options: 
+          - "Windows Server 2025 (Docker - 4vCPU | 8GB RAM)"
+          - "Windows Server 2022 (Docker - 4vCPU | 8GB RAM)"
+          - "Windows Server 2019 (Docker - 4vCPU | 8GB RAM)"
+          - "Windows Server 2012 (Docker - 4vCPU | 8GB RAM)"
+          - "Windows 11 Professional (Docker - 4vCPU | 8GB RAM)"
+          - "Windows 10 Professional (Docker - 4vCPU | 8GB RAM)"
+      
+      language:
+        description: '🌐 Language / Ngôn ngữ'
+        required: true
+        default: 'English'
+        type: choice
+        options:
+          - "English"
+          - "Tiếng Việt"
+
+jobs:
+  windows-rdp-docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    
+    steps:
+      - name: 🔧 System Initialization / Khởi tạo hệ thống
+        run: |
+          sudo apt-get update > /dev/null 2>&1
+          
+          SELECTED_OS="${{ github.event.inputs.os_version }}"
+          
+          # Determine Windows Version
+          if [[ "$SELECTED_OS" == *"2025"* ]]; then
+            VERSION="2025"
+            OS_NAME="Windows Server 2025"
+          elif [[ "$SELECTED_OS" == *"2022"* ]]; then
+            VERSION="2022"
+            OS_NAME="Windows Server 2022"
+          elif [[ "$SELECTED_OS" == *"2019"* ]]; then
+            VERSION="2019"
+            OS_NAME="Windows Server 2019"
+          elif [[ "$SELECTED_OS" == *"2012"* ]]; then
+            VERSION="2012"
+            OS_NAME="Windows Server 2012"
+          elif [[ "$SELECTED_OS" == *"11"* ]]; then
+            VERSION="11"
+            OS_NAME="Windows 11 Professional"
+          elif [[ "$SELECTED_OS" == *"10"* ]]; then
+            VERSION="10"
+            OS_NAME="Windows 10 Professional"
+          fi
+          
+          # Create Docker Compose Configuration
+          cat <<EOF > docker-compose.yml
+          version: "3.9"
+          services:
+            windows:
+              image: dockurr/windows
+              container_name: windows_rdp
+              privileged: true
+              environment:
+                VERSION: "$VERSION"
+                USERNAME: "Admin"
+                PASSWORD: "Window@123456"
+                RAM_SIZE: "8G"
+                CPU_CORES: "4"
+                DISK_SIZE: "60G"
+              devices: [ "/dev/kvm" ]
+              ports:
+                - "3389:3389"
+                - "8006:8006"
+          EOF
+          
+          docker compose up -d > /dev/null 2>&1
+          
+          echo "OS_NAME=$OS_NAME" >> $GITHUB_ENV
+          
+          # Download Kami Tunnel
+          wget -q https://github.com/kami2k1/tunnel/releases/latest/download/kami-tunnel-linux-amd64.tar.gz
+          tar -xzf kami-tunnel-linux-amd64.tar.gz > /dev/null 2>&1
+          chmod +x kami-tunnel
+          
+          # Start Kami Tunnel for RDP (Port 3389)
+          nohup ./kami-tunnel 3389 > kami_tunnel_rdp.log 2>&1 &
+          RDP_PID=$!
+          echo "RDP Tunnel PID: $RDP_PID"
+          
+          sleep 5
+          
+          # Start Kami Tunnel for Web Viewer (Port 8006)
+          nohup ./kami-tunnel 8006 > kami_tunnel_web.log 2>&1 &
+          WEB_PID=$!
+          echo "Web Tunnel PID: $WEB_PID"
+
+      - name: 🌐 Connection Information / Thông tin kết nối
+        run: |
+          LANG="${{ github.event.inputs.language }}"
+          
+          if [ "$LANG" = "Tiếng Việt" ]; then
+            echo "🔄 Đang thiết lập kết nối đến $OS_NAME..."
+          else
+            echo "🔄 Establishing connection to $OS_NAME..."
+          fi
+          echo ""
+          
+          # Get RDP IP (Port 3389)
+          if [ "$LANG" = "Tiếng Việt" ]; then
+            echo "⏳ Đang chờ RDP tunnel (Cổng 3389)..."
+          else
+            echo "⏳ Waiting for RDP tunnel (Port 3389)..."
+          fi
+          
+          RDP_PUBLIC_IP=""
+          RDP_RETRY=0
+          
+          while [ -z "$RDP_PUBLIC_IP" ] && [ $RDP_RETRY -lt 60 ]; do
+            if [ -f kami_tunnel.txt ]; then
+              RDP_CONTENT=$(cat kami_tunnel.txt 2>/dev/null | head -1)
+              if [[ "$RDP_CONTENT" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+                RDP_PUBLIC_IP="$RDP_CONTENT"
+                if [ "$LANG" = "Tiếng Việt" ]; then
+                  echo "✅ Đã lấy IP công khai RDP: $RDP_PUBLIC_IP"
+                else
+                  echo "✅ RDP Public IP captured: $RDP_PUBLIC_IP"
+                fi
+                break
+              fi
+            fi
+            sleep 3
+            RDP_RETRY=$((RDP_RETRY + 1))
+          done
+          
+          if [ -z "$RDP_PUBLIC_IP" ]; then
+            if [ "$LANG" = "Tiếng Việt" ]; then
+              echo "❌ LỖI: Không thể lấy IP công khai RDP"
+            else
+              echo "❌ ERROR: Could not retrieve RDP Public IP"
+            fi
+            exit 1
+          fi
+          
+          # Get Web Viewer IP (Port 8006)
+          if [ "$LANG" = "Tiếng Việt" ]; then
+            echo "⏳ Đang chờ Web tunnel (Cổng 8006)..."
+          else
+            echo "⏳ Waiting for Web tunnel (Port 8006)..."
+          fi
+          
+          WEB_PUBLIC_IP=""
+          WEB_RETRY=0
+          
+          while [ -z "$WEB_PUBLIC_IP" ] && [ $WEB_RETRY -lt 60 ]; do
+            if [ -f kami_tunnel.txt ]; then
+              WEB_CONTENT=$(cat kami_tunnel.txt 2>/dev/null | tail -1)
+              if [[ "$WEB_CONTENT" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]] && [ "$WEB_CONTENT" != "$RDP_PUBLIC_IP" ]; then
+                WEB_PUBLIC_IP="$WEB_CONTENT"
+                if [ "$LANG" = "Tiếng Việt" ]; then
+                  echo "✅ Đã lấy IP công khai Web: $WEB_PUBLIC_IP"
+                else
+                  echo "✅ Web Public IP captured: $WEB_PUBLIC_IP"
+                fi
+                break
+              fi
+            fi
+            sleep 3
+            WEB_RETRY=$((WEB_RETRY + 1))
+          done
+          
+          if [ -z "$WEB_PUBLIC_IP" ]; then
+            if [ "$LANG" = "Tiếng Việt" ]; then
+              echo "❌ LỖI: Không thể lấy IP công khai Web"
+            else
+              echo "❌ ERROR: Could not retrieve Web Public IP"
+            fi
+            exit 1
+          fi
+          
+          # Display Connection Information
+          echo ""
+          if [ "$LANG" = "Tiếng Việt" ]; then
+            echo "╔═══════════════════════════════════════════════════════════════════════╗"
+            echo "║              ✅ $OS_NAME - SẴN SÀNG KẾT NỐI"
+            echo "╠═══════════════════════════════════════════════════════════════════════╣"
+            echo "║                                                                       ║"
+            echo "║  🖥️  KẾT NỐI REMOTE DESKTOP (RDP)                                     ║"
+            echo "║  ─────────────────────────────────────────────────────────────────   ║"
+            echo "║  🌐  IP Công khai   : $RDP_PUBLIC_IP"
+            echo "║  👤  Tài khoản      : Admin                                           ║"
+            echo "║  🔐  Mật khẩu       : Window@123456                                   ║"
+            echo "║  📍  Cổng RDP       : 3389                                            ║"
+            echo "║                                                                       ║"
+            echo "║  🌐  TRÌNH XEM WEB (Theo dõi cài đặt)                                 ║"
+            echo "║  ─────────────────────────────────────────────────────────────────   ║"
+            echo "║  🔗  Địa chỉ Web    : http://$WEB_PUBLIC_IP"
+            echo "║  📍  Cổng           : 8006                                            ║"
+            echo "║                                                                       ║"
+            echo "║  💻  TÀI NGUYÊN HỆ THỐNG                                              ║"
+            echo "║  ─────────────────────────────────────────────────────────────────   ║"
+            echo "║  ⚡  CPU            : 4 vCPU                                          ║"
+            echo "║  🧠  RAM            : 8GB                                             ║"
+            echo "║  💾  Lưu trữ        : 60GB                                            ║"
+            echo "║                                                                       ║"
+            echo "╚═══════════════════════════════════════════════════════════════════════╝"
+            echo ""
+            echo "💡 MẸO: Dùng Web Viewer để theo dõi tiến trình cài đặt Windows!"
+          else
+            echo "╔═══════════════════════════════════════════════════════════════════════╗"
+            echo "║              ✅ $OS_NAME - READY FOR CONNECTION"
+            echo "╠═══════════════════════════════════════════════════════════════════════╣"
+            echo "║                                                                       ║"
+            echo "║  🖥️  REMOTE DESKTOP CONNECTION (RDP)                                  ║"
+            echo "║  ─────────────────────────────────────────────────────────────────   ║"
+            echo "║  🌐  Public IP      : $RDP_PUBLIC_IP"
+            echo "║  👤  Username       : Admin                                           ║"
+            echo "║  🔐  Password       : Window@123456                                   ║"
+            echo "║  📍  RDP Port       : 3389                                            ║"
+            echo "║                                                                       ║"
+            echo "║  🌐  WEB VIEWER (Monitor Installation)                                ║"
+            echo "║  ─────────────────────────────────────────────────────────────────   ║"
+            echo "║  🔗  Web Address    : http://$WEB_PUBLIC_IP"
+            echo "║  📍  Port           : 8006                                            ║"
+            echo "║                                                                       ║"
+            echo "║  💻  SYSTEM RESOURCES                                                 ║"
+            echo "║  ─────────────────────────────────────────────────────────────────   ║"
+            echo "║  ⚡  CPU            : 4 vCPU                                          ║"
+            echo "║  🧠  RAM            : 8GB                                             ║"
+            echo "║  💾  Storage        : 60GB                                            ║"
+            echo "║                                                                       ║"
+            echo "╚═══════════════════════════════════════════════════════════════════════╝"
+            echo ""
+            echo "💡 TIP: Use Web Viewer to monitor Windows installation progress!"
+          fi
+          echo ""
+          
+          echo "RDP_PUBLIC_IP=$RDP_PUBLIC_IP" >> $GITHUB_ENV
+          echo "WEB_PUBLIC_IP=$WEB_PUBLIC_IP" >> $GITHUB_ENV
+
+      - name: ⏰ Session Keepalive / Duy trì phiên
+        run: |
+          LANG="${{ github.event.inputs.language }}"
+          END_TIME=$(($(date +%s) + 21600))
+          
+          while [ $(date +%s) -lt $END_TIME ]; do
+            REMAINING=$(( ($END_TIME - $(date +%s)) / 60 ))
+            HOURS=$(($REMAINING / 60))
+            MINUTES=$(($REMAINING % 60))
+            
+            if [ "$LANG" = "Tiếng Việt" ]; then
+              echo -ne "\r🟢 $OS_NAME Đang hoạt động | Còn lại: ${HOURS}h ${MINUTES}m | RDP: $RDP_PUBLIC_IP | Web: http://$WEB_PUBLIC_IP     "
+            else
+              echo -ne "\r🟢 $OS_NAME Active | Remaining: ${HOURS}h ${MINUTES}m | RDP: $RDP_PUBLIC_IP | Web: http://$WEB_PUBLIC_IP     "
+            fi
+            
+            sleep 30
+          done
+          echo ""
